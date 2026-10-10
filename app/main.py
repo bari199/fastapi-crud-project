@@ -1,5 +1,5 @@
-
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -14,10 +14,22 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Create tables for this learning project
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Keep your existing database setup
 Base.metadata.create_all(bind=engine)
 
-# Register task endpoints
+# Register routers
 app.include_router(tasks_router)
 app.include_router(auth_router)
 
