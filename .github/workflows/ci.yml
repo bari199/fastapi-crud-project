@@ -1,4 +1,3 @@
-
 name: FastAPI CRUD CI
 
 on:
@@ -15,6 +14,8 @@ jobs:
   backend-check:
     name: Backend CI
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/fastapi_rag_test_db
 
     steps:
       - name: Checkout repository
