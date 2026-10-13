@@ -1,7 +1,7 @@
 
 services:
   db:
-    image: postgres:16-alpine
+    image: pgvector/pgvector:pg16
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-fastapi_crud_db}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -26,6 +26,9 @@ services:
       - .env
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-fastapi_crud_db}
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_EMBED_MODEL: nomic-embed-text
+      OLLAMA_CHAT_MODEL: llama3.2:3b
     ports:
       - "8000:8000"
     depends_on:

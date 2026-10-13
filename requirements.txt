@@ -7,3 +7,6 @@ pydantic[email]
 python-multipart
 pwdlib[argon2]
 PyJWT
+openai
+pypdf
+pgvector

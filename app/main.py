@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-
+from app.rag import models as rag_models
 from app import models
 from app.database import Base, engine
 from app.routes.tasks import router as tasks_router
 from app.routes.auth import router as auth_router
+from app.routes.rag import router as rag_router
 
 app = FastAPI(
     title="FastAPI Task Management API",
@@ -32,6 +33,7 @@ Base.metadata.create_all(bind=engine)
 # Register routers
 app.include_router(tasks_router)
 app.include_router(auth_router)
+app.include_router(rag_router)
 
 @app.get("/", tags=["General"])
 def root():
